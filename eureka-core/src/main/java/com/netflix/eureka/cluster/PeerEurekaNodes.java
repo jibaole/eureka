@@ -121,6 +121,7 @@ public class PeerEurekaNodes {
 
                 }
             };
+            // 注释：间隔 600000 毫秒，即 10分钟 间隔执行一次服务集群数据同步；
             taskExecutor.scheduleWithFixedDelay(
                     peersUpdateTask,
                     serverConfig.getPeerEurekaNodesUpdateIntervalMs(),

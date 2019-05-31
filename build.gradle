@@ -5,17 +5,14 @@ buildscript {
         classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:2.2.+'
     }
 }
-
 plugins {
     id 'nebula.netflixoss' version '3.6.0'
 }
-
 idea {
     project {
         languageLevel = '1.8'
     }
 }
-
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
         tasks.withType(Javadoc) {
@@ -23,7 +20,6 @@ if (JavaVersion.current().isJava8Compatible()) {
         }
     }
 }
-
 allprojects {
     ext {
         githubProjectName = 'eureka'
@@ -45,7 +41,6 @@ allprojects {
         woodstoxVersion = '4.4.1'
     }
 }
-
 subprojects {
     apply plugin: 'nebula.netflixoss'
     apply plugin: 'java'
@@ -72,3 +67,5 @@ subprojects {
     }
 }
 
+dependencies {
+}

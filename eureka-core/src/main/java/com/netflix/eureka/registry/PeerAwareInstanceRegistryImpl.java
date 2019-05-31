@@ -137,9 +137,13 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
     @Override
     public void init(PeerEurekaNodes peerEurekaNodes) throws Exception {
         this.numberOfReplicationsLastMin.start();
+
         this.peerEurekaNodes = peerEurekaNodes;
+        // 注释：初始化 Eureka Server 响应缓存，默认缓存时间为30s
         initializedResponseCache();
+        // 注释：定时任务，多久重置一下心跳阈值，900000 毫秒，即 15分钟 的间隔时间，会重置心跳阈值
         scheduleRenewalThresholdUpdateTask();
+        // 注释：初始化远端注册
         initRemoteRegionRegistry();
 
         try {
@@ -401,14 +405,17 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
      */
     @Override
     public void register(final InstanceInfo info, final boolean isReplication) {
-        // 租约过期时间
+        // 注释：续约时间，默认时间是常量值 90 秒
         int leaseDuration = Lease.DEFAULT_DURATION_IN_SECS;
+        // 注释：续约时间，当然也可以从配置文件中取出来，所以说续约时间值也是可以让我们自己自定义配置的
         if (info.getLeaseInfo() != null && info.getLeaseInfo().getDurationInSecs() > 0) {
             leaseDuration = info.getLeaseInfo().getDurationInSecs();
         }
         // 注册应用实例信息
+        // 注释：将注册方的信息写入 EurekaServer 的注册表，父类为　AbstractInstanceRegistry
         super.register(info, leaseDuration, isReplication);
         // Eureka-Server 复制
+        // 注释：EurekaServer 节点之间的数据同步，复制到其他Peer
         replicateToPeers(Action.Register, info.getAppName(), info.getId(), info, null, isReplication);
     }
 
