@@ -2,37 +2,38 @@ Eureka
 =====
 [![Build Status](https://netflixoss.ci.cloudbees.com/job/NetflixOSS/job/eureka/job/eureka-snapshot/badge/icon)](https://netflixoss.ci.cloudbees.com/job/NetflixOSS/job/eureka/job/eureka-snapshot/)
 
-Eureka is a REST (Representational State Transfer) based service that is primarily used in the AWS cloud for locating services for the purpose of load balancing and failover of middle-tier servers.
+Eureka是一个基于REST(具象状态传输)的服务，主要用于AWS云中定位服务，以实现中间层服务器的负载平衡和故障转移。
+在Netflix, Eureka除了在中间层负载平衡中扮演重要角色外，还用于以下目的。
 
-At Netflix, Eureka is used for the following purposes apart from playing a critical part in mid-tier load balancing.
+* 帮助Netflix Asgard -一个开源服务，使云部署更容易，在
+        +快速回滚版本，以防问题，避免重新启动100个实例，这可能需要很长时间。
+        +在滚动推送中，避免在出现问题时将新版本传播到所有实例。
 
-* For aiding Netflix Asgard - an open source service which makes cloud deployments easier, in  
-    + Fast rollback of versions in case of problems avoiding the re-launch of 100's of instances which 
-      could take a long time.
-    + In rolling pushes, for avoiding propagation of a new version to all instances in case of problems.
+* 或者我们的cassandra部署，从通信流中取出实例进行维护。
 
-* For our cassandra deployments to take instances out of traffic for maintenance.
+* 来标识环中的节点列表。
 
-* For our memcached caching services to identify the list of nodes in the ring.
-
-* For carrying other additional application specific metadata about services for various other reasons.
+* 用于由于各种其他原因携带其他特定于应用程序的关于服务的其他特定元数据。
 
 
-Building
+构建
 ----------
-The build requires java8 because of some required libraries that are java8 (servo), but the source and target compatibility are still set to 1.7.
+构建需要java8，因为一些必需的库是java8 (servo)，但是源和目标兼容性仍然设置为1.7。
 
-
-Support
+支持
 ----------
 [Eureka Google Group](https://groups.google.com/forum/?fromgroups#!forum/eureka_netflix)
 
 
-Documentation
+文档
 --------------
-Please see [wiki](https://github.com/Netflix/eureka/wiki) for detailed documentation.
+请看 [wiki](https://github.com/Netflix/eureka/wiki) 的详细文档.
 
 
 源码入口:
 ---------------
 地址:<https://segmentfault.com/a/1190000011668299>
+
+调试环境搭建
+---------------
+地址:<https://blog.csdn.net/cyq12345_/article/details/78791291>

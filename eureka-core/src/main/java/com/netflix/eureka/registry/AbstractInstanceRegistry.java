@@ -251,6 +251,7 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
         try {
             // 获取读锁
             read.lock();
+            // 注释：registry　这个变量，就是我们所谓的注册表，注册表是保存在内存中的；
             Map<String, Lease<InstanceInfo>> gMap = registry.get(registrant.getAppName());
             // 增加 注册次数 到 监控
             REGISTER.increment(isReplication);
